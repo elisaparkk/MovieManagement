@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies Display</title>
+    <style>
+        body {
+            font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            margin: 20px;
+            padding: 10px;
+            background-color: black;
+            color: rgb(9, 9, 9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: left;
+        }
+
+        #header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            width: 1000%; /* Adjust the width of the header */
+            max-width: 100%; 
+        }
+
+        #header img {
+            max-width: 150%; /* Adjust the width of the image */
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .stars {
+            display: flex;
+            align-items: center;
+        }
+
+        .star-img {
+            width: 150px; /* Adjust the width of the star images */
+            height: auto;
+            margin: 0 5px;
+        }
+
+        #output {
+            border: 1px solid rgb(216, 203, 83);
+            border-width: 50px;
+            padding: 20px;
+            margin-bottom: 10px;
+            background-color: rgb(206, 102, 102);
+            width: 80%; /* Adjust the width of the output */
+            max-width: 100%;
+        }
+
+        .title {
+            text-align:center;
+            font-size: 30px;
+            text-decoration: underline;
+            font-weight: bold;
+            color: aliceblue;
+            padding-bottom: 30px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="title">Movie Management</div>
+    
+      <div id="header">
+        <div class="stars">
+            <img src="star.jpg" alt="Star" class="star-img">
+        </div>
+        <img src="movie.jpg" alt="Movie">
+        <div class="stars">
+            <img src="star.jpg" alt="Star" class="star-img">
+        </div>
+    </div>
+    
+    <div id="output"></div>
+
+    <script>
+        const movie_array = [];
+
+        function Movie(title, rating, havewatched) {
+            return { title: title, rating: rating, haveWatched: havewatched };
+        }
+
+        function addMovie(movie) {
+            console.log("A new movie is added");
+            movie_array.length++;
+            movie_array[movie_array.length - 1] = movie;
+        }
+
+        function printMovies() {
+            let output = "Printing all movies...\n";
+            for (let i = 0; i < movie_array.length; i++) {
+                let m = movie_array[i];
+                output += `${m.title}, rating of ${m.rating}, havewatched: ${m.haveWatched}\n`;
+            }
+            output += `\nYou have ${movie_array.length} movies in total\n`;
+            return output;
+        }
+
+        function highRatings(rating) {
+            let output = `Printing movies that have a rating higher than ${rating}\n`;
+            let matches = 0;
+            for (let i = 0; i < movie_array.length; i++) {
+                let m = movie_array[i];
+                if (m.rating >= rating) {
+                    output += `${m.title} has a rating of ${m.rating}\n`;
+                    matches++;
+                }
+            }
+            output += `\nIn total, there are ${matches} matches\n`;
+            return output;
+        }
+
+        function changeWatched(title) {
+            for (let i = 0; i < movie_array.length; i++) {
+                let m = movie_array[i];
+                if (m.title === title) {
+                    m.haveWatched = !m.haveWatched;
+                }
+            }
+        }
+
+        function displayOutput(output) {
+            const outputDiv = document.getElementById('output');
+            outputDiv.innerText += output;
+            outputDiv.innerText += '----------------\n';
+        }
+
+        console.log("running program...");
+
+        addMovie(Movie("Spiderman", 3, true));
+        addMovie(Movie("Citizen Kane", 4, false));
+        addMovie(Movie("Zootopia", 4.5, true));
+
+        displayOutput(printMovies());
+
+        addMovie(Movie("Parasite", 2, false));
+        changeWatched("Spiderman");
+
+        displayOutput(printMovies());
+
+        changeWatched("Spiderman");
+
+        displayOutput(printMovies());
+
+        displayOutput(highRatings(3.5));
+    </script>
+</body>
+</html>
