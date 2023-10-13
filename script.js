@@ -2,65 +2,47 @@ const movie_array = [];
 
 function Movie(title, rating, havewatched) {
         return {title:title, rating:rating, haveWatched:havewatched};
-
 } 
 
 function addMovie(movie) {
-
         console.log("A new movie is added");
         movie_array.length++;
         movie_array[movie_array.length - 1] = movie;
 
 } 
 
-function printMovies() {
-        
+function printMovies() {   
         let output = "Printing all movies...\n";
-
         for (let i = 0; i < movie_array.length; i++) {
                 let m = movie_array[i];
-                output += ("" + m.title + "has a rating of " + m.rating + ", havewatched: " + m.haveWatched + "\n");
-    
+                output += ("" + m.title + "has a rating of " + m.rating + ", havewatched: " + m.haveWatched + "\n"); 
         } 
-
         output += ("\nYou have " + movie_array.length + " movies in total\n");
         console.log(output);
-
 } 
 
 function highRatings(rating) {
         let output = "printing movie that has a rating higher than " + rating + "\n";
-        let matches = 0;
-    
+        let matches = 0; 
         for (let i = 0; i < movie_array.length; i++) {
-            let m = movie_array[i];
-    
+            let m = movie_array[i];  
             if (m.rating > rating) {  // Adjusted the condition to match "higher than" instead of "greater or equal to"
                 output += m.title + " has a rating of " + m.rating + "\n";
                 matches++;
-            }
-    
-        }
-    
+            }   
+        }    
         output += "\nIn total, there are " + matches + " matches\n";
         console.log(output);
     }     
 
 function changeWatched(title) {
-
         console.log("changing the status of the movie...");
-
-        for (let i = 0; i < movie_array.length; i++) {
-                
+        for (let i = 0; i < movie_array.length; i++) {            
                 let m = movie_array[i];
-
                 if (m.title == title) {
                         m.haveWatched = !m.haveWatched;
-
-                } 
-    
+                }    
         } 
-
 } 
 
 console.log("running program...");
